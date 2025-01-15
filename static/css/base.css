@@ -1,0 +1,6 @@
+.info_main img {
+    height: 50%;
+}
+.row {
+    --bs-gutter-x: 1.0rem
+}
