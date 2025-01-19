@@ -5,9 +5,52 @@
     opacity: 0.7;
 }
 
-.is_free{
+.busy {
+  background-color: #ee8181;
+}
+
+.free{
   background-color: rgb(188, 235, 188);
 }
+
+.image-container {
+  position: relative;
+}
+
+.image-container img {
+  display: block;
+  width: 100%;
+}
+
+.image-container .overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.image-container-menu {
+  position: relative;
+  margin: 20px;
+}
+
+.image-container-menu img {
+  display: block;
+  width: 100%;
+}
+
+.a-container {
+  display: flex;
+  justify-content: center;
+}
+
 .container-fluid {
     text-align: right;
 }

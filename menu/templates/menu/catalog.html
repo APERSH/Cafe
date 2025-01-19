@@ -2,27 +2,27 @@
 {% load static %}
 
 {% block content %}
-<h1>Выберите продукты для стола №{{table.id}}</h1>
-    <a href="{% url "main:home" %}">Вернуться к списку столов</a>
-    <a href="{% url "orders:create-order" table.id %}">Перейти к заказу стола №{{table.id}}</a>
+    <div class='text-center'>
+        <h1>Выберите продукты для стола №{{table.id}}</h1>
+    </div>
+    <div class='a-container'>
+        <a href="{% url "main:home" %}" class="btn btn-warning mx-3 mt-3">Вернуться к списку столов</a>
+        <a href="{% url "orders:create-order" table.id %}" class="btn btn-warning mx-3 mt-3">Перейти к заказу стола №{{table.id}}</a>
+    </div>
     <div class="container text-center">
         <div class="row">
             {% for product in products %}
                 <div class='col-xl-6 col-md-6 col-lg-6'>
-                    <div class='d-block'>
                         <div class='row'>
-                            <div class = 'd-flex justify-content-between'>
-                                <div class = 'catalog_info'>
-                                    <img src="{{product.image.url}}" alt="">
-                                    <h2>Название - {{product.name}}</h2>
-                                    <h2>Цена {{product.price}}</h2>
-                                    <h2>Описание {{product.description}}</h2>
-                                    <a href="{% url "cart:cart_add" product.slug table.id %}">Добавить в заказ</a>
+                                <div class='image-container-menu'>
+                                    <div class = 'catalog_info'>
+                                        <img src="{{product.image.url}}" alt="">
+                                        <h2>{{product.name}}</h2>
+                                        <h2>Цена {{product.price}} ₽ </h2>
+                                        <a href="{% url "cart:cart_add" product.slug table.id %}" class="btn btn-warning mx-3 mt-3">Добавить в заказ</a>
+                                    </div>
                                 </div>
-                                
-                            </div>
                         </div>
-                    </div>
                 </div>
             {% endfor %}
         </div>

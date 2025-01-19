@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db import transaction
+from django.urls import reverse
 from carts.models import Cart
 from main.models import Table
 from orders.models import Order, OrderItem
@@ -63,5 +64,12 @@ def order_list(request):
         'tables': tables
     }
     return render(request, 'orders/order_list.html', context) 
+
+def order_remove(requset, order_id):
+    order = Order.objects.get(id = order_id)
+    order.delete()
+    return redirect(requset.META['HTTP_REFERER'])
+
+
 
 

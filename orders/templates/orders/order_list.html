@@ -50,7 +50,7 @@
         </div>
     {% endif %}
     <h3 class="text-center mb-4">Заказы</h3>
-                        <div class="container">
+                        <div class="container mt-50">
                             <div class="accordion" id="accordionExample">
                                 {% for order in orders %}
                                     <div class="accordion-item">
@@ -83,35 +83,41 @@
                                                     </tbody>
                                                 </table>
                                                 <h2><strong>Общая стоимость {{order.total_cost}} ₽</strong> </h2>
-                                                <a href="" class="btn btn-warning mx-3 mt-3">Редактировать заказ</a>
-                                                <a href="" class="btn btn-danger mx-3 mt-3">Удалить заказ</a>
-                                                    <div class="dropdown mb-2">
-                                                        <button class="btn btn-warning mx-3 mt-3 dropdown-toggle btn-secondary text-black"  style="font-family:'Raleway', sans-serif" type="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            Изменить статус заказа
-                                                        </button>
-                                                        <form action="" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
-                                                            <div class="form-check text-white mx-3">
-                                                                <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default" {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}>
-                                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                                    В ожидании
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check text-white mx-3">
-                                                                <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price" {% if request.GET.order_by == 'price' %}checked{% endif %}>
-                                                                <label class="form-check-label" for="flexRadioDefault2">
-                                                                    Готово
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check text-white mx-3">
-                                                                <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault3" value="-price" {% if request.GET.order_by == '-price' %}checked{% endif %}>
-                                                                <label class="form-check-label" for="flexRadioDefault3">
-                                                                    Оплачен
-                                                                </label>
-                                                            </div>
-                                                            <button type="submit" class="btn btn-warning mx-3 mt-3">Применить</button>
-                                                        </form>
+                                                <div class="row align-items-center">
+                                                    <div class="col-auto">
+                                                        <div class="dropdown mb-2">
+                                                            <button class="btn btn-warning dropdown-toggle btn-warning text-black mx-3 mt-3"  style="font-family:'Raleway', sans-serif" type="button" data-bs-toggle="dropdown"
+                                                                aria-expanded="false">
+                                                                Изменить статус
+                                                            </button>
+                                                            <form action="{% url "orders:order-list" %}" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
+                                                                <p class="text-white mx-3 mt-3">Статус заказа:</p>
+                                                                <div class="form-check text-white mx-3">
+                                                                    <input class="form-check-input" type="radio" name="status" id="flexRadioDefault1" value="wait" {% if request.GET.status == 'wait' %}checked{% endif %}>
+                                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                                        В ожидании
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check text-white mx-3">
+                                                                    <input class="form-check-input" type="radio" name="status" id="flexRadioDefault2" value="ready" {% if request.GET.status == 'ready' %}checked{% endif %}>
+                                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                                        Готово
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check text-white mx-3">
+                                                                    <input class="form-check-input" type="radio" name="status" id="flexRadioDefault3" value="paid" {% if request.GET.status == 'paid' %}checked{% endif %}>
+                                                                    <label class="form-check-label" for="flexRadioDefault3">
+                                                                        Оплачено
+                                                                    </label>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-warning mx-3 mt-3">Применить</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
+                                                    <div class="col-auto">
+                                                        <a href="{% url "orders:order-remove" order.id %}" class="btn btn-danger mx-2 mt-2">Удалить заказ</a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
