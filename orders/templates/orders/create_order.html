@@ -7,7 +7,6 @@
         <div class="container">
             <h3 class="text-center mb-4"><strong>Выбранные товары</strong></h3>
             <div class="container" id="cart-items-container">
-                <!-- Разметка корзины -->
                 <div class="card mb-3 text-bg-light shadow-lg">
                     {% for cart in carts %}
                         <div class="card-header">
@@ -50,8 +49,7 @@
                         <h4 class="float-left"><strong>{{carts.total_price}} ₽</strong></h4>
                     </div>
                 </div>
-                <a href="">Оформить заказ</a>
-                <!-- Закончилась разметка корзины -->
+                <a href="{% url "orders:created-order" table.id %}">Оформить заказ</a>
             </div>
         </div>
     </div>

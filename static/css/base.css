@@ -1,53 +1,74 @@
+
+
 .info_main img {
-    height: 50%;
+    width:  50%;
     opacity: 0.7;
 }
 
+.is_free{
+  background-color: rgb(188, 235, 188);
+}
 .container-fluid {
     text-align: right;
 }
 
+.catalog_info img {
+  height: 50%;
+}
+
 
 table {
-    width:100%;
-    border-spacing:0;
-    border-collapse: collapse;
-  }
-  
-  table th, table td {
-    text-align:left;
-    font-size:14px;
-    padding:10px;
-    margin:0;
-  }
-  
-  tbody tr:nth-child(odd) {
-    background:#efefef;
-  }
-  
-  tbody tr.subtotal {
-    background:#ccc;
-  }
-  
-  thead th, tbody tr.total {
-    background:#F2C64D;
-    color:#fff;
-    font-weight:bold;
-  }
-  
-  table.cart {
-    margin-bottom:40px;
-  }
-  
-  table.cart img {
-    width:180px;
-  }
-  
-  tbody td.num {
-    text-align:left;
-  }
-  
-  td input[type="submit"] {
-    font-size:12px;
-    padding:4px 10px;
-  }
+  width:100%;
+  border-spacing:0;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  text-align:left;
+  font-size:14px;
+  padding:10px;
+  margin:0;
+}
+
+tbody tr:nth-child(odd) {
+  background:#efefef;
+}
+
+tbody tr.subtotal {
+  background:#ccc;
+}
+
+thead th, tbody tr.total {
+  background:#F2C64D;
+  color:#969191;
+  font-weight:bold;
+}
+
+table.cart {
+  margin-bottom:40px;
+}
+
+table.cart img {
+  width:180px;
+}
+
+tbody td.num {
+  text-align:left;
+}
+
+td input[type="submit"] {
+  font-size:12px;
+  padding:4px 10px;
+}
+
+td img {
+  height: 100px;
+}
+
+.accordion-item {
+  margin: 10px;
+}
+
+.accordion-header {
+  background-color: rgb(200, 238, 225);
+}
