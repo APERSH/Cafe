@@ -24,6 +24,7 @@ class Order(models.Model):
     table = models.ForeignKey(to=Table, on_delete=models.SET_DEFAULT, default=None, blank=True, null=True, verbose_name='Номер стола')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания заказа')
     status = models.CharField(verbose_name='Статус заказа', max_length=10, choices=STATUS_CHOICES, default='wait')
+    status_changed = models.DateTimeField(null=True, blank=True, verbose_name='Дата изменения статуса')
 
     class Meta:
         db_table = 'order'

@@ -112,6 +112,20 @@ td img {
   margin: 10px;
 }
 
-.accordion-header {
+.accordion-header-paid {
   background-color: rgb(200, 238, 225);
+}
+
+.accordion-header-ready {
+  background-color: rgb(245, 242, 69);
+}
+
+.accordion-header-wait {
+  background-color: rgb(240, 122, 101);
+}
+
+.profit h2 {
+  display: inline;
+  background-color: #ee8181;
+  border-radius: 5px;
 }

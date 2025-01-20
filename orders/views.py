@@ -4,6 +4,7 @@ from django.urls import reverse
 from carts.models import Cart
 from main.models import Table
 from orders.models import Order, OrderItem
+from django.utils import timezone
 
 
 
@@ -75,6 +76,7 @@ def change_status(request):
         status = request.POST.get('status')
         order = get_object_or_404(Order, id=order_id)
         order.status = status
+        order.status_changed = timezone.now()
         order.save()
         return redirect(request.META['HTTP_REFERER'])
 

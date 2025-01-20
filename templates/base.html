@@ -20,7 +20,7 @@
                 <a class="nav-link" href="{% url "orders:order-list" %}">Список заказов</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Выручка</a>
+                <a class="nav-link" href="{% url "profit:profit-list" %}">Выручка за {% now "d.m.Y" %}</a>
               </li>
             </ul>
           </div>

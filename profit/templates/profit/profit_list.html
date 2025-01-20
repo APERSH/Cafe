@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h3 class="text-center mb-4">Заказы оплаченные {% now "d.m.Y" %}</h3>
+                        <div class="container mt-50">
+                            <div class="accordion" id="accordionExample">
+                                {% for order in orders %}
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header-paid" id="heading1">
+                                                Заказ № {{order.id}} | Стол № {{order.table.id}} | Статус:<strong class="mx-2"> {{order.get_status_display}}</strong> | Оплачен -  {{order.status_changed}}
+                                        </h2>
+                                        <div id="collapse{{order.id}}" class="accordion-collapse collapse {% if order == orders.0 %}show{% endif %} show" aria-labelledby="heading{{order.id}}" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <table class="table table-dark table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Товар</th>
+                                                            <th>Количество</th>
+                                                            <th>Цена</th>
+                                                            <th>Итого</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for item in order.items.all %}
+                                                            <tr>
+                                                                <td>{{item.product.name}}</td>
+                                                                <td>{{item.quantity}}</td>
+                                                                <td>{{item.price }} ₽</td>
+                                                                <td>{{item.products_price }} ₽</td>
+            
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table> 
+                                                <h2><strong>Итого: {{order.total_cost}} ₽</strong> </h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <div class='profit'>
+                                    <h2>Выручка за день {{profit}} ₽ </h2>
+                                </div>
+                            </div>
+                        </div>
+{% endblock  %}

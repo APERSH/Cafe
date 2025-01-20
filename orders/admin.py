@@ -8,4 +8,4 @@ class OrderItemAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'table', 'created', 'status']
+    list_display = ['id', 'table', 'created', 'status', 'status_changed']
