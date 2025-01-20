@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db import transaction
 from django.urls import reverse
 from carts.models import Cart
 from main.models import Table
 from orders.models import Order, OrderItem
+
 
 
 def create_order(request, table_id):
@@ -55,13 +56,11 @@ def order_list(request):
             orders = Order.objects.all().order_by('id')
         if status_page:
             orders = orders.filter(status = status_page).order_by('id')
-
-
     tables = Table.objects.all()
-    
+        
     context = {
         'orders': orders,
-        'tables': tables
+        'tables': tables,
     }
     return render(request, 'orders/order_list.html', context) 
 
@@ -70,6 +69,14 @@ def order_remove(requset, order_id):
     order.delete()
     return redirect(requset.META['HTTP_REFERER'])
 
+def change_status(request):
+    if request.method == 'POST':
+        order_id = request.POST.get('order')
+        status = request.POST.get('status')
+        order = get_object_or_404(Order, id=order_id)
+        order.status = status
+        order.save()
+        return redirect(request.META['HTTP_REFERER'])
 
 
 
