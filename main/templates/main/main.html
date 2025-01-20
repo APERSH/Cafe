@@ -1,18 +1,23 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}{{title}}{% endblock  %}
+
 {% block content %}
     <div class ='text-center'>
         <h1>Выберите стол для создания заказа</h1>
     </div>
+    <!-- Разметка поиска началась -->
     <div class='content'>
-        <div class='col-lg-2'>
+        <div class='col-lg-2 m-4'>
             <form class="d-flex" role="search" action="{% url "main:search" %}" method="get">
-                <input class="form-control me-2" type="search" name="q" placeholder='Введите номер стола' aria-label='search'>
+                <input class="form-control" type="search" name="q" placeholder='Введите номер стола' aria-label='search'>
                 <button class="btn btn-warning text-black" style="border-radius:5px" type="submit">Выбрать</button>
             </form>
         </div>
     </div>
+    <!-- Разметка поиска закончилась -->
+    <!-- Разметка списка столов началась -->
     <div class="container text-center">
         <div class="row">
             {% for table in tables %}
@@ -46,4 +51,5 @@
             {% endfor %}
         </div>
     </div>
+    <!-- Разметка списка столов закончилась -->
 {% endblock  %}

@@ -1,16 +1,23 @@
 {% extends "base.html" %}
 {% load static %}
 
+
+
+
 {% block content %}
-    <div class='col-lg-2'>
+    <h1 class="text-center mb-4">Заказы</h1>
+    <!-- Поиск по номеру заказа -->
+    <div class='col-lg-2 m-4'>
         <form class="d-flex" role="search" action="{% url "orders:search" %}" method="get">
-            <input class="form-control me-2" type="search" name="q" placeholder='Введите номер заказа' aria-label='search'>
+            <input class="form-control" type="search" name="q" placeholder='Введите номер заказа' aria-label='search'>
             <button class="btn btn-outline-warning text-black" style="border-radius:5px" type="submit">Выбрать</button>
         </form>
     </div>
+    <!-- Поиск по номеру заказа Ends-->
+    <!-- Начинается разметка фильтров  -->
     {% if not request.GET.q %}
-        <div class="row">
-            <div class="dropdown mb-2">
+        <div class="row m-4">
+            <div class="dropdown">
                 <button class="btn btn-warning dropdown-toggle btn-warning text-black"  style="font-family:'Raleway', sans-serif" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     Фильтры
@@ -49,94 +56,96 @@
             </div>
         </div>
     {% endif %}
-                    <h3 class="text-center mb-4">Заказы</h3>
-                        <div class="container mt-50">
-                            <div class="accordion" id="accordionExample">
-                                {% for order in orders %}
-                                    <div class="accordion-item">
-                                        {% if order.status == 'paid' %}
-                                            <h2 class="accordion-header-paid" id="heading1">
-                                                    Заказ № {{order.id}} | Стол № {{order.table.id}} | Создан -  {{order.created}} | Статус:<strong class="mx-2"> {{order.get_status_display}}</strong>
-                                            </h2>
-                                        {% elif order.status == 'ready' %}
-                                            <h2 class="accordion-header-ready" id="heading1">
-                                                Заказ № {{order.id}} | Стол № {{order.table.id}} | Создан -  {{order.created}} | Статус:<strong class="mx-2"> {{order.get_status_display}}</strong>
-                                            </h2>
-                                        {% else %}
-                                            <h2 class="accordion-header-wait" id="heading1">
-                                                Заказ № {{order.id}} | Стол № {{order.table.id}} | Создан -  {{order.created}} | Статус:<strong class="mx-2"> {{order.get_status_display}}</strong>
-                                            </h2>
-                                        {% endif %}
-                                        <div id="collapse{{order.id}}" class="accordion-collapse collapse {% if order == orders.0 %}show{% endif %} show" aria-labelledby="heading{{order.id}}" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                <table class="table table-dark table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Товар</th>
-                                                            <th>Изображение</th>
-                                                            <th>Количество</th>
-                                                            <th>Цена</th>
-                                                            <th>Общая стоимость</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {% for item in order.items.all %}
-                                                            <tr>
-                                                                <td>{{item.product.name}}</td>
-                                                                <td><img src="{{item.product.image.url}}" alt=""></td>
-                                                                <td>{{item.quantity}}</td>
-                                                                <td>{{item.price }} ₽</td>
-                                                                <td>{{item.products_price }} ₽</td>
+    <!-- Заканчивается разметка фильтров  -->
+    <!-- Начинается разметка заказов  -->
+    <div class="container mt-50">
+        <div class="accordion" id="accordionExample">
+            {% for order in orders %}
+                <div class="accordion-item">
+                    {% if order.status == 'paid' %}
+                        <h2 class="accordion-header-paid" id="heading1">
+                                Заказ № {{order.id}} | Стол № {{order.table.id}} | Создан -  {{order.created}} | Статус:<strong class="mx-2"> {{order.get_status_display}}</strong>
+                        </h2>
+                    {% elif order.status == 'ready' %}
+                        <h2 class="accordion-header-ready" id="heading1">
+                            Заказ № {{order.id}} | Стол № {{order.table.id}} | Создан -  {{order.created}} | Статус:<strong class="mx-2"> {{order.get_status_display}}</strong>
+                        </h2>
+                    {% else %}
+                        <h2 class="accordion-header-wait" id="heading1">
+                            Заказ № {{order.id}} | Стол № {{order.table.id}} | Создан -  {{order.created}} | Статус:<strong class="mx-2"> {{order.get_status_display}}</strong>
+                        </h2>
+                    {% endif %}
+                    <div id="collapse{{order.id}}" class="accordion-collapse collapse {% if order == orders.0 %}show{% endif %} show" aria-labelledby="heading{{order.id}}" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table class="table table-dark table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Товар</th>
+                                        <th>Изображение</th>
+                                        <th>Количество</th>
+                                        <th>Цена</th>
+                                        <th>Общая стоимость</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in order.items.all %}
+                                        <tr>
+                                            <td>{{item.product.name}}</td>
+                                            <td><img src="{{item.product.image.url}}" alt=""></td>
+                                            <td>{{item.quantity}}</td>
+                                            <td>{{item.price }} ₽</td>
+                                            <td>{{item.products_price }} ₽</td>
             
-                                                            </tr>
-                                                        {% endfor %}
-                                                    </tbody>
-                                                </table>
-                                                <h2><strong>Общая стоимость {{order.total_cost}} ₽</strong> </h2>
-                                                <div class="row align-items-center">
-                                                    <div class="col-auto">
-                                                        <div class="dropdown mb-2">
-                                                            <button class="btn btn-warning dropdown-toggle btn-warning text-black mx-3 mt-3"  style="font-family:'Raleway', sans-serif" type="button" data-bs-toggle="dropdown"
-                                                                aria-expanded="false">
-                                                                Изменить статус
-                                                            </button>
-                                                            <form action="{% url "orders:change-status" %}" method="post" class="dropdown-menu bg-dark" data-bs-theme="dark">
-                                                                {% csrf_token %}
-                                                                <p class="text-white mx-3 mt-3">Статус заказа:</p>
-                                                                <input type="hidden" name="order" value="{{order.id}}">
-                                                                <div class="form-check text-white mx-3">
-                                                                    <input class="form-check-input" type="radio" name="status" id="id_status_wait" value="wait" {% if order.status == 'wait' %}checked{% endif %}>
-                                                                    <label class="form-check-label" for="id_status_wait">
-                                                                        В ожидании
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check text-white mx-3">
-                                                                    <input class="form-check-input" type="radio" name="status" id="id_status_ready" value="ready" {% if order.status == 'ready' %}checked{% endif %}>
-                                                                    <label class="form-check-label" for="id_status_ready">
-                                                                        Готово
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check text-white mx-3">
-                                                                    <input class="form-check-input" type="radio" name="status" id="id_status_paid" value="paid" {% if order.status == 'paid' %}checked{% endif %}>
-                                                                    <label class="form-check-label" for="id_status_paid">
-                                                                        Оплачено
-                                                                    </label>
-                                                                </div>
-                                                                <button type="submit" class="btn btn-warning mx-3 mt-3">Применить</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <a href="{% url "orders:order-remove" order.id %}" class="btn btn-danger mx-2 mt-2">Удалить заказ</a>
-                                                    </div>
-                                                </div>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <h2><strong>Общая стоимость {{order.total_cost}} ₽</strong> </h2>
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <div class="dropdown mb-2">
+                                        <button class="btn btn-warning dropdown-toggle btn-warning text-black mx-3 mt-3"  style="font-family:'Raleway', sans-serif" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            Изменить статус
+                                        </button>
+                                        <form action="{% url "orders:change-status" %}" method="post" class="dropdown-menu bg-dark" data-bs-theme="dark">
+                                            {% csrf_token %}
+                                            <p class="text-white mx-3 mt-3">Статус заказа:</p>
+                                            <input type="hidden" name="order" value="{{order.id}}">
+                                            <div class="form-check text-white mx-3">
+                                                <input class="form-check-input" type="radio" name="status" id="id_status_wait" value="wait" {% if order.status == 'wait' %}checked{% endif %}>
+                                                <label class="form-check-label" for="id_status_wait">
+                                                    В ожидании
+                                                </label>
                                             </div>
-                                        </div>
+                                            <div class="form-check text-white mx-3">
+                                                <input class="form-check-input" type="radio" name="status" id="id_status_ready" value="ready" {% if order.status == 'ready' %}checked{% endif %}>
+                                                <label class="form-check-label" for="id_status_ready">
+                                                    Готово
+                                                </label>
+                                            </div>
+                                            <div class="form-check text-white mx-3">
+                                                <input class="form-check-input" type="radio" name="status" id="id_status_paid" value="paid" {% if order.status == 'paid' %}checked{% endif %}>
+                                                <label class="form-check-label" for="id_status_paid">
+                                                    Оплачено
+                                                </label>
+                                            </div>
+                                            <button type="submit" class="btn btn-warning mx-3 mt-3">Применить</button>
+                                        </form>
                                     </div>
-                                {% endfor %}
-                                {% if request.GET.q %}
-                                    <a href="{% url "orders:order-list" %}" class="btn btn-warning mx-3 mt-3">Вернуться к списку всех заказов</a> 
-                                {% endif %}
+                                </div>
+                                <div class="col-auto">
+                                    <a href="{% url "orders:order-remove" order.id %}" class="btn btn-danger mx-2 mt-2">Удалить заказ</a>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% if request.GET.q %}
+                <a href="{% url "orders:order-list" %}" class="btn btn-warning mx-3 mt-3">Вернуться к списку всех заказов</a> 
+            {% endif %}
+        </div>
+    </div>
+    <!-- Заканчивается разметка заказов  -->
 {% endblock  %}

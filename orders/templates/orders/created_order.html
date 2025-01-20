@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Заказ создан</h1>
+<div class='text-center'>
+    <h1>Заказ № {{order.id}} создан</h1>
+    <a href="{% url "orders:order-list" %}" class="btn btn-warning mx-3 mt-3" >Перейти к списку заказов</a>
+</div>
 {% endblock  %}

@@ -129,3 +129,13 @@ td img {
   background-color: #ee8181;
   border-radius: 5px;
 }
+
+.navbar-nav .nav-item .nav-link {
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  background-color: #ffc107; 
+  color: #000000; 
+  text-decoration: none; 
+}

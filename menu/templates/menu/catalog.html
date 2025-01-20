@@ -2,13 +2,18 @@
 {% load static %}
 
 {% block content %}
+    <!-- Разметка заголовка началась -->
     <div class='text-center'>
         <h1>Выберите продукты для стола №{{table.id}}</h1>
     </div>
+    <!-- Разметка заголовка закончилась -->
+    <!-- Разметка кнопок началась -->
     <div class='a-container'>
         <a href="{% url "main:home" %}" class="btn btn-warning mx-3 mt-3">Вернуться к списку столов</a>
         <a href="{% url "orders:create-order" table.id %}" class="btn btn-warning mx-3 mt-3">Перейти к заказу стола №{{table.id}}</a>
     </div>
+    <!-- Разметка кнопок закончилась -->
+    <!-- Разметка списка доступных блюд началась -->
     <div class="container text-center">
         <div class="row">
             {% for product in products %}
@@ -27,4 +32,5 @@
             {% endfor %}
         </div>
     </div>
+    <!-- Разметка списка доступных блюд закончилась -->
 {% endblock  %}

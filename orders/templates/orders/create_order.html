@@ -7,6 +7,7 @@
         <div class="container">
             <h3 class="text-center mb-4"><strong>Выбранные товары</strong></h3>
             <div class="container" id="cart-items-container">
+                <!-- Отображение товаров, добавленных в заказ -->
                 <div class="card mb-3 text-bg-light shadow-lg">
                     {% for cart in carts %}
                         <div class="card-header">
@@ -43,13 +44,19 @@
                         </ul>
                     {% endfor %}
                 </div>
+                <!-- Отображение товаров, добавленных в заказ ends-->
+                <!-- Итоговая сумма -->
                 <div class="card mb-3 shadow-lg">
                     <div class="card-footer">
                         <p class="float-left">Итого <strong>{{carts.total_quantity }}</strong> товар(а) на сумму</p>
                         <h4 class="float-left"><strong>{{carts.total_price}} ₽</strong></h4>
                     </div>
                 </div>
-                <a href="{% url "orders:created-order" table.id %}" class="btn btn-warning mx-3 mt-3" >Оформить заказ</a>
+                <!-- Итоговая сумма ends -->
+                <!-- Если добавленных товаров нет, скрываем ссылку оформить заказ -->
+                {% if carts %}
+                    <a href="{% url "orders:created-order" table.id %}" class="btn btn-warning mx-3 mt-3" >Оформить заказ</a>
+                {% endif %}
                 <a href="{% url "menu:catalog" table.id %}" class="btn btn-warning mx-3 mt-3"> Добавить еще товары</a>
             </div>
         </div>
